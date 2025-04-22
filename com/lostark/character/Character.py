@@ -16,7 +16,7 @@ REQUEST_HEADER = {
 router = APIRouter()
 templates = Jinja2Templates(directory="views/lostark/character")
 
-@router.get("/character")
+@router.get("/lostark/character")
 async def Character(request: Request):
     print(request)
     return templates.TemplateResponse("character.html",context={"request":request})

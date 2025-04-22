@@ -1,5 +1,7 @@
 -- PIP INSTALL LIST HISTORY
 
+-- Python Version 3.13.x
+
 python.exe -m pip install --upgrade pip
 
 pip install bs4
