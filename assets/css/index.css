@@ -1,0 +1,15 @@
+li {
+    list-style-type: none;
+}
+
+.main {
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    height: 95dvh;
+}
+
+.logo {
+    display:block;
+    width:240px;
+}

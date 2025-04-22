@@ -3,9 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <title>Index</title>
+    <link rel="stylesheet" type="text/css"  href="{{ url_for('assets', path='/css/index.css') }}">
+    <link rel="stylesheet" type="text/css"  href="{{ url_for('assets', path='/css/reset.css') }}">
 </head>
 <body>
-    <!--<a href="/lostark"><img src="./assets/img/lostark.jpg"></a><br/>-->
-    <a href="/lostark">라우터 동작 확인</a>
+    <div class="main">
+        <table>
+            <tbody>
+                <th><a href="/lostark"><img class="logo" src="./assets/img/logo_lostark.png"></a></th>
+                <th><a href="/maple"><img class="logo" src="./assets/img/logo_maple.png"></a></th>
+                <th><a href="/dnf"><img class="logo" src="./assets/img/logo_dnf.png"></a></th>
+            </tbody>
+        </table>
+    </div>
 </body>
 </html>
