@@ -33,3 +33,7 @@ gcloud config set account ${GOOGLE_CLOUD_ACCOUNT}
 gcloud projects add-iam-policy-binding astalgia \
     --member="serviceAccount:astalgia@astalgia.iam.gserviceaccount.com" \
     --role="roles/aiplatform.admin"
+
+gcloud projects remove-iam-policy-binding astalgia \
+    --member="serviceAccount:astalgia@astalgia.iam.gserviceaccount.com" \
+    --role="roles/aiplatform.admin"

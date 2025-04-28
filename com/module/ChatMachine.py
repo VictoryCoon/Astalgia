@@ -3,6 +3,7 @@ import vertexai
 from vertexai.language_models import TextEmbeddingModel
 from vertexai.preview.generative_models import GenerativeModel
 from google.oauth2 import service_account
+from google.cloud import aiplatform
 
 #GCP PROJECT INFO
 KEY_PATH = os.path.abspath("C:/Astalgia/astalgia-63599d9916b4.json")
@@ -39,3 +40,5 @@ def Embedding(Q):
         print("모델 이름 또는 리전을 확인하거나 라이브러리를 업데이트해 보세요.")
     except Exception as e:
         print(f"기타 오류 발생: {e}")
+
+#QuestionAndAnswer("VERTEX AI는 중지했어, 향후에도 이 포멧을 사용하긴 할거같아")
