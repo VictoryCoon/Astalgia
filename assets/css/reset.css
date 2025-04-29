@@ -1,0 +1,17 @@
+:root{
+    --cm-color:#FCFCFC;
+    --um-color:#7FFF00;
+    --rr-color:#00BFFF;
+    --ep-color:#9400D3;
+    --lg-color:#FFA500;
+    --rl-color:#FF4500;
+    --aq-color:#EEE8AA:
+    --es-color:#00FFFF;
+}
+
+.goldLine {
+    border:0.2em solid;
+    border-radius:0.1em;
+    border-image: linear-gradient(to right, #ECC440 0%, #FFFA8A 29%, #DDAC17 67%, #FFFF95 100%);
+    border-image-slice: 1;
+}
