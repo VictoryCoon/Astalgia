@@ -1,0 +1,30 @@
+/*
+ * Container : display, flex-flow, justify-content, align-content
+ *                      flex-direction              align-items
+ *                      flex-wrap
+ *
+ * Item : order, flex, align-self
+ *               flex-grow
+ *               flex-shrink
+ *               flex-basis
+ *
+ * font-size oriented scale
+ * 1em = 16px(default). It is depends on mother content.
+ * 1rem = 1em, It is depends on root content.
+ */
+.main {
+    border:1px solid #000;
+    display:flex;
+    justify-content:center;  /* space-around, center */
+    align-items:center;
+    height: 95dvh;
+    gap:5em;
+}
+
+.logo {
+    border-radius:0.2em;
+    background-color:var(--es-color);
+    box-shadow:0em 0em 1em 0.3em #52535B;
+    width:9em;
+    height:9em;
+}
