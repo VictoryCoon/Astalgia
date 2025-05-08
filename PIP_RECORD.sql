@@ -5,6 +5,7 @@
 python.exe -m pip install --upgrade pip
 
 pip install bs4
+pip install lxml
 pip install jinja2
 pip install dotenv
 pip install requests

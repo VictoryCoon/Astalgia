@@ -3,10 +3,31 @@
 <head>
     <meta charset="UTF-8">
     <title>LostArk</title>
+    <link rel="stylesheet" type="text/css"  href="{{ url_for('assets', path='/css/reset.css') }}">
+    <link rel="stylesheet" type="text/css"  href="{{ url_for('assets', path='/css/lostark/main.css') }}">
 </head>
 <body>
-    {% include 'header.html' %}
-    <h1>여기는 로스트아크 페이지 입니다.</h1>
-    <a href="/lostark/character">라우터 동작 확인2</a>
+    <div class="search">
+        <form class="form_box" id="searchForm" action="/lostark/search" method="get">
+            <input class="input_box" type="text" name="charName" id="charName" placeholder="캐릭터명" maxlength="18"/>
+            <button class="input_btn" type="submit"></button>
+            <script>
+                const searchForm = document.getElementById('searchForm');
+                const charName   = document.getElementById('charName');
+                searchForm.addEventListener('submit', function(event) {
+                    if (charName.value.trim() === '') {
+                      alert('부적합한 캐릭터명');
+                      event.preventDefault(); // 폼 제출 막기
+                      return;
+                    }
+                    if (charName.value.length > 18) {
+                      alert('매우 큰 입력 값');
+                      event.preventDefault(); // 폼 제출 막기
+                      return;
+                    }
+                });
+            </script>
+        </form>
+    </div>
 </body>
 </html>

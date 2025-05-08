@@ -1,11 +1,11 @@
 import uvicorn
-from com import Root
 from fastapi import FastAPI
 from fastapi.staticfiles import StaticFiles
 from com import Root
-from com.lostark import LostArk
-from com.maple import Maple
+
 from com.dnf import Dnf
+from com.maple import Maple
+from com.lostark import LostArk
 from com.dnf.character import Character as DnfCharacter
 from com.maple.character import Character as MapleCharacter
 from com.lostark.character import Character as LostArkCharacter

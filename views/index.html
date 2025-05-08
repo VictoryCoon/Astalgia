@@ -12,22 +12,6 @@
         <a class="logo" href="/lostark">BLOCK_1</a>
         <a class="logo" href="/maple">BLOCK_2</a>
         <a class="logo" href="/dnf">BLOCK_3</a>
-        <form action="/search" method="post">
-            <input type="text" name="question" id="question" placeholder="질문."/>
-            <button type="submit">입력</button>
-        </form>
-        {% if answer %}
-        <p>{{ answer }}</p>
-        {% endif %}
-        <!--
-        <table>
-            <tbody>
-                <th><a href="/lostark"><img class="logo" src="./assets/img/logo_lostark.png"></a></th>
-                <th><a href="/maple"><img class="logo" src="./assets/img/logo_maple.png"></a></th>
-                <th><a href="/dnf"><img class="logo" src="./assets/img/logo_dnf.png"></a></th>
-            </tbody>
-        </table>
-        -->
     </div>
     {% include 'layout/footer.html' %}
 </body>

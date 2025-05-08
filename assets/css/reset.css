@@ -7,6 +7,64 @@
     --rl-color:#FF4500;
     --aq-color:#EEE8AA:
     --es-color:#00FFFF;
+    --bg-dark-color-lv1:#4A5564;
+    --bg-dark-color-lv2:#525F70;
+    --bg-dark-color-lv3:#5E6E82;
+    --bg-dark-color-lv4:#6B7B91;
+    --bg-dark-color-lv5:#7888A0;
+    --bg-white-color-lv1:#FFFFFF;
+    --bg-white-color-lv2:#F0F0F0;
+    --bg-white-color-lv3:#D3D3D3;
+    --bg-white-color-lv4:#A9A9A9;
+    --bg-white-color-lv5:#808080;
+}
+
+body {
+    font-family: 'Raleway', sans-serif;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    box-sizing:border-box;
+    background-color:var(--bg-dark-color-lv1);
+}
+
+.search {
+    display:flex;
+    justify-content:center;  /* space-around, center */
+    flex-direction:row;
+    align-items:center;
+    height: 15dvh;
+}
+
+.search .form_box{
+    display:flex;
+    flex-direction:row;
+    justify-content:center;
+    overflow: hidden;
+    border:0.1em solid;
+    border-image: linear-gradient(to right, #ECC440 0%, #FFFA8A 29%, #DDAC17 67%, #FFFF95 100%);
+    border-image-slice: 1;
+}
+
+.search .form_box .input_box{
+    display:flex;
+    border:0px;
+    padding:0px;
+    margin:0;
+    height:2rem;
+    width:35vw;
+    text-indent:1rem;
+}
+
+.search .form_box .input_btn{
+    display:flex;
+    border:0px;
+    padding:0px;
+    margin:0;
+    background-image:url('../img/icon_search.png');
+    background-size: cover;
+    height:2rem;
+    width:2rem;
 }
 
 .goldLine {
