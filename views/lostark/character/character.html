@@ -19,9 +19,8 @@
         OUT
     </div>
     <div class="wrap">
-        <div class="lAd">Left AD</div>
         <div class="content">
-            <div class="category-frame">
+            <div class="category_frame">
                 <div class="equips">
                     {% for equip in armors %}
                     <figure class="equip">
@@ -31,7 +30,7 @@
                     {% endfor %}
                 </div>
             </div>
-            <div class="category-frame">
+            <div class="category_frame">
                 <div class="accs">
                     {% for acc in accs %}
                     <figure class="acc">
@@ -41,27 +40,59 @@
                     {% endfor %}
                 </div>
             </div>
-            <div class="category-frame">
+            <div class="category_frame">
                 <div class="gems">
                     {% for gem in gems %}
-                        <figure class="gem">
-                            <div class="icon_pack">
-                                <img class="gem_icon" src="{{gem.GemIcon}}" alt="{{gem.GemName}}">
-                                <img class="gem_skill_icon" src="{{gem.Icon}}" alt="{{gem.Name}}">
-                            </div>
-                            <figcaption class="gem_caption">[{{gem.GemLevel}}]{{gem.Name}}<br>{{gem.Description|replace('[','')|replace(']','')|replace('\'','')}}</figcaption>
-                        </figure>
+                        {% if gem.Type == 'D' %}
+                            <figure class="gem_damage">
+                                <div class="icon_pack">
+                                    <span class="gem_level">{{gem.GemLevel}}</span>
+                                    <img class="gem_icon" src="{{gem.GemIcon}}" alt="{{gem.GemName}}">
+                                    <img class="gem_skill_icon" src="{{gem.Icon}}" alt="{{gem.Name}}">
+                                </div>
+                            </figure>
+                        {% endif %}
+                        {% if gem.Type == 'C' %}
+                            <figure class="gem_cool">
+                                <div class="icon_pack">
+                                    <span class="gem_level">{{gem.GemLevel}}</span>
+                                    <img class="gem_icon" src="{{gem.GemIcon}}" alt="{{gem.GemName}}">
+                                    <img class="gem_skill_icon" src="{{gem.Icon}}" alt="{{gem.Name}}">
+                                </div>
+                            </figure>
+                        {% endif %}
                     {% endfor %}
                 </div>
             </div>
-            <div class="category-frame">
-                4
+            <div class="category_frame">
+                <div class="skills">
+                    {% for skill in skills %}
+                        {% if skill.Level > 2 %}
+                        <figure class="skill">
+                            <div class="icon_pack">
+                                <span class="skill_level">{{skill.Level}}</span>
+                                <img class="skill_icon" src="{{skill.Icon}}" alt="{{skill.Name}}">
+                                {% for tripod in skill.Tripods %}
+                                    {% if tripod.IsSelected == True %}
+                                        <img class="tripod_icon" src="{{tripod.Icon}}" alt="{{tripod.Name}}">{{tripod.Level}}
+                                    {% endif %}
+                                {% endfor %}
+                            </div>
+                        </figure>
+                        {% endif %}
+                    {% endfor %}
+                </div>
             </div>
-            <div class="category-frame">
+            <div class="category_frame">
                 5
             </div>
+            <div class="category_frame">
+                6
+            </div>
+            <div class="category_frame">
+                7
+            </div>
         </div>
-        <div class="rAd">Right AD</div>
     </div>
     {% endif %}
 </body>

@@ -24,7 +24,6 @@ templates = Jinja2Templates(directory="views/lostark/character")
 
 @router.get("/lostark/search",response_class=HTMLResponse)
 async def CharacterInformation(request: Request,charName:str=Query(str)):
-    print(HOST)
     equip_url      = HOST+"armories/characters/"+charName+"/equipment"
     gem_url       = HOST+"armories/characters/"+charName+"/gems"
     skill_url     = HOST + "armories/characters/" + charName + "/combat-skills"
@@ -35,6 +34,9 @@ async def CharacterInformation(request: Request,charName:str=Query(str)):
     skill_info     = requests.get(skill_url, headers=REQUEST_HEADER)
     engraving_info = requests.get(engraving_url, headers=REQUEST_HEADER)
     engravings = engraving_info.json()
+
+    # skill
+    #print(clean_json_data(skill_info.json()))
 
     # Equip Info
     armor = []
@@ -76,6 +78,12 @@ async def CharacterInformation(request: Request,charName:str=Query(str)):
                 effrect["GemName"] = gem["Name"]
                 effrect["GemLevel"] = gem["Level"]
                 effrect["GemGrade"] = gem["Grade"]
+                if effrect["Description"][0].find('피해') != -1:
+                    effrect["Type"] = "D"
+                elif effrect["Description"][0].find('재사용') != -1:
+                    effrect["Type"] = "C"
+
+    print(effrects)
 
     return templates.TemplateResponse(
         "character.html"
@@ -87,7 +95,7 @@ async def CharacterInformation(request: Request,charName:str=Query(str)):
             ,"bracelet":clean_json_data(bracelet)
             ,"stone":clean_json_data(stone)
             ,"gems":clean_json_data(effrects)
-            ,"skills":skill_info.json()
+            ,"skills":clean_json_data(skill_info.json())
             ,"engrave":engravings
         }
     )
