@@ -1,4 +1,7 @@
 import os
+
+from googleapiclient.mimeparse import quality
+
 from com.util.MyTypeUtil import clean_json_data, remove_double_side_pattern, clean_double_side_data, clean_without_number
 import json
 from bs4 import BeautifulSoup
@@ -47,23 +50,60 @@ async def CharacterInformation(request: Request,charName:str=Query(str)):
     ston_type = ["어빌리티 스톤"]
     acc_types = ["목걸이", "귀걸이", "반지"]
     acc_other = ["팔찌"]
+    """
+    acc_attacker_enchant_high    = ["적에게 주는 피해 +2.00%","추가 피해 +2.60%","치명타 피해 +4.00%","치명타 적중률 +1.55%","공격력 +390","공격력 +1.55%"]
+    acc_attacker_enchant_middle  = ["적에게 주는 피해 +1.20%","추가 피해 +1.60%","치명타 피해 +2.40%","치명타 적중률 +0.95%","공격력 +195","공격력 +0.95%"]
+    acc_attacker_enchant_low     = ["적에게 주는 피해 +0.55%","추가 피해 +0.70%","치명타 피해 +1.10%","치명타 적중률 +0.40%","공격력 +80", "공격력 +0.40%"]
+    acc_supporter_enchant_high   = ["낙인력 +8.00%","아군 공격력 강화 효과 +5.00%","아군 피해량 강화 효과 +7.50%","세레나데, 신앙, 조화 게이지 획득량 +6.00%","파티원 보호막 효과 +3.50%"]
+    acc_supporter_enchant_middle = ["낙인력 +4.80%","아군 공격력 강화 효과 +3.00%","아군 피해량 강화 효과 +4.50%","세레나데, 신앙, 조화 게이지 획득량 +3.60%","파티원 보호막 효과 +2.10%"]
+    acc_supporter_enchant_low    = ["낙인력 +2.15%","아군 공격력 강화 효과 +1.35%","아군 피해량 강화 효과 +2.00%","세레나데, 신앙, 조화 게이지 획득량 +1.60%","파티원 보호막 효과 +0.95%"]
+    acc_mutual_enchant_high      = ["최대 생명력 +6500","상태이상 공격 지속시간 +1.00%","전투 중 생명력 회복량 +50","최대 마나 +30","무기 공격력 +960","무기 공격력 +3.00%"]
+    acc_mutual_enchant_middle    = ["최대 생명력 +3250","상태이상 공격 지속시간 +0.50%","전투 중 생명력 회복량 +25","최대 마나 +15","무기 공격력 +480","무기 공격력 +1.80%"]
+    acc_mutual_enchant_low       = ["최대 생명력 +1300","상태이상 공격 지속시간 +0.20%","전투 중 생명력 회복량 +10","최대 마나 +6", "무기 공격력 +195","무기 공격력 +0.80%"]
+    """
+    acc_enchant_high = [
+        "적에게 주는 피해 +2.00%","추가 피해 +2.60%","치명타 피해 +4.00%","치명타 적중률 +1.55%","공격력 +390","공격력 +1.55%",                                 # Attacker
+        "낙인력 +8.00%", "아군 공격력 강화 효과 +5.00%", "아군 피해량 강화 효과 +7.50%", "세레나데, 신앙, 조화 게이지 획득량 +6.00%", "파티원 보호막 효과 +3.50%",    # Supporter
+        "최대 생명력 +6500", "상태이상 공격 지속시간 +1.00%", "전투 중 생명력 회복량 +50", "최대 마나 +30", "무기 공격력 +960", "무기 공격력 +3.00%"                # Common
+    ]
+
+    acc_enchant_middle = [
+        "적에게 주는 피해 +1.20%", "추가 피해 +1.60%", "치명타 피해 +2.40%", "치명타 적중률 +0.95%", "공격력 +195", "공격력 +0.95%",                            # Attacker
+        "낙인력 +4.80%", "아군 공격력 강화 효과 +3.00%", "아군 피해량 강화 효과 +4.50%", "세레나데, 신앙, 조화 게이지 획득량 +3.60%", "파티원 보호막 효과 +2.10%",    # Supporter
+        "최대 생명력 +3250", "상태이상 공격 지속시간 +0.50%", "전투 중 생명력 회복량 +25", "최대 마나 +15", "무기 공격력 +480", "무기 공격력 +1.80%"                # Common
+    ]
+
+    acc_enchant_low = [
+        "적에게 주는 피해 +0.55%", "추가 피해 +0.70%", "치명타 피해 +1.10%", "치명타 적중률 +0.40%", "공격력 +80", "공격력 +0.40%",                             # Attacker
+        "낙인력 +4.80%", "아군 공격력 강화 효과 +3.00%", "아군 피해량 강화 효과 +4.50%", "세레나데, 신앙, 조화 게이지 획득량 +3.60%", "파티원 보호막 효과 +2.10%",    # Supporter
+        "최대 생명력 +1300", "상태이상 공격 지속시간 +0.20%", "전투 중 생명력 회복량 +10", "최대 마나 +6", "무기 공격력 +195", "무기 공격력 +0.80%"                 # Common
+    ]
     for equips in equip_info.json():
         if equips["Type"] in armor_types:
+            tooltip_value = json.loads(equips["Tooltip"])
+            quality_value = tooltip_value["Element_001"]['value']
+            equips["Quality"] = quality_value['qualityValue']
             armor.append(equips)
         elif equips["Type"] in acc_types:
             tooltip_value = json.loads(equips["Tooltip"])
             option_value = tooltip_value["Element_005"]["value"]
-            #print(option_value["Element_001"])
+            quality_value = tooltip_value["Element_001"]['value']
             pattern = r"<img.*?></img>(.*?)(?=<img|$)"
-            matches = clean_double_side_data(pattern, option_value["Element_001"])
-            equips["Enchant"] = clean_json_data(matches)
-            """
-            여기서부터는 단위 노가다를 해야한다.
-            로스트아크 목걸이/귀걸이/반지의 주요 옵션들의 [상/중/하] 범주를 if문으로 구현하고, 그 값에 따라 Rank값을 맥여야함.
-            val 
-            """
-            print(clean_without_number(matches))
+            options = clean_double_side_data(pattern, option_value["Element_001"])
+            equips["Enchant"] = clean_json_data(options)
+            equips["Quality"] = quality_value['qualityValue']
+            equips["Enchant_Rank"] = ["","",""]
+
+            for i in range(3):
+                if equips["Enchant"][i] in acc_enchant_high:
+                    equips["Enchant_Rank"][i] = "H"
+                elif equips["Enchant"][i] in acc_enchant_middle:
+                    equips["Enchant_Rank"][i] = "M"
+                elif equips["Enchant"][i] in acc_enchant_low:
+                    equips["Enchant_Rank"][i] = "L"
+
             acc.append(clean_json_data(equips))
+            print(equips)
         elif equips["Type"] in acc_other:
             bracelet.append(equips)
         elif equips["Type"] in ston_type:
@@ -82,8 +122,6 @@ async def CharacterInformation(request: Request,charName:str=Query(str)):
                     effrect["Type"] = "D"
                 elif effrect["Description"][0].find('재사용') != -1:
                     effrect["Type"] = "C"
-
-    print(effrects)
 
     return templates.TemplateResponse(
         "character.html"

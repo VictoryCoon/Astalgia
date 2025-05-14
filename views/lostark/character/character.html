@@ -26,6 +26,7 @@
                     <figure class="equip">
                         <img class ="equip_icon" src="{{equip.Icon}}" alt="{{equip.Name}}">
                         <figcaption class="equip_caption">{{equip.Name}}</figcaption>
+                        {{equip.Quality}}
                     </figure>
                     {% endfor %}
                 </div>
@@ -35,7 +36,11 @@
                     {% for acc in accs %}
                     <figure class="acc">
                         <img class ="acc_icon" src="{{acc.Icon}}" alt="{{acc.Name}}">
-                        <figcaption class="acc_caption">{{acc.Name}}<br>{{acc.Enchant}}</figcaption>
+                        <figcaption class="acc_caption">{{acc.Name}}/{{acc.Quality}}<br>
+                            {{acc.Enchant_Rank[0]}}|{{acc.Enchant[0]}}<br>
+                            {{acc.Enchant_Rank[1]}}|{{acc.Enchant[1]}}<br>
+                            {{acc.Enchant_Rank[2]}}|{{acc.Enchant[2]}}<br>
+                        </figcaption>
                     </figure>
                     {% endfor %}
                 </div>

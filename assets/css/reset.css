@@ -1,17 +1,17 @@
 :root{
-    --cm-color:#FCFCFC;
-    --um-color:#7FFF00;
-    --rr-color:#00BFFF;
-    --ep-color:#9400D3;
-    --lg-color:#FFA500;
-    --rl-color:#FF4500;
-    --aq-color:#EEE8AA:
-    --es-color:#00FFFF;
-    --bg-dark-color-lv1:#4A5564;
-    --bg-dark-color-lv2:#525F70;
-    --bg-dark-color-lv3:#5E6E82;
-    --bg-dark-color-lv4:#6B7B91;
-    --bg-dark-color-lv5:#7888A0;
+    --cm-color:#FCFCFC;     /* 일반 */
+    --um-color:#7FFF00;     /* 언커먼 */
+    --rr-color:#00BFFF;     /* 레어 */
+    --ep-color:#9400D3;     /* 에픽 */
+    --lg-color:#FFA500;     /* 전설 */
+    --rl-color:#FF4500;     /* 유물 */
+    --aq-color:#EEE8AA:     /* 고대 */
+    --es-color:#00FFFF;     /* 에스더 */
+    --bg-dark-color-lv1:#1A1A1A;
+    --bg-dark-color-lv2:#333333;
+    --bg-dark-color-lv3:#4D4D4D;
+    --bg-dark-color-lv4:#666666;
+    --bg-dark-color-lv5:#808080;
     --bg-white-color-lv1:#FFFFFF;
     --bg-white-color-lv2:#F0F0F0;
     --bg-white-color-lv3:#D3D3D3;
