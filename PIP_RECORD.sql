@@ -38,3 +38,12 @@ gcloud projects add-iam-policy-binding astalgia \
 gcloud projects remove-iam-policy-binding astalgia \
     --member="serviceAccount:astalgia@astalgia.iam.gserviceaccount.com" \
     --role="roles/aiplatform.admin"
+
+gcloud dns managed-zones describe astalgia
+
+watch dig astalgia.com @ns-cloud-d1.googledomains.com
+watch dig astalgia.com @ns-cloud-d2.googledomains.com
+watch dig astalgia.com @ns-cloud-d3.googledomains.com
+watch dig astalgia.com @ns-cloud-d4.googledomains.com
+
+watch dig +short NS astalgia.com
