@@ -12,6 +12,7 @@ from fastapi import APIRouter, Request, Form, Query
 from starlette.responses import HTMLResponse
 from fastapi.templating import Jinja2Templates
 
+
 load_dotenv()
 HOST = os.getenv("LOSTARK_API_SERVER_HOST")
 API_KEY = os.getenv("LOSTARK_API_KEY")
