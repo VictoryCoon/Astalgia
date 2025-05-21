@@ -1,4 +1,6 @@
 import uvicorn
+import os
+
 from fastapi import FastAPI
 from fastapi.staticfiles import StaticFiles
 from com import Root
@@ -24,5 +26,7 @@ app.include_router(LostArkCharacter.router)
 app.include_router(Maple.router)
 app.include_router(MapleCharacter.router)
 
+port = int(os.environ.get("PORT", 10000))
+
 if __name__ == "__main__":
-    uvicorn.run("app:app",host="0.0.0.0",port=10000,reload=True)
+    uvicorn.run("app:app",host="0.0.0.0",port=port,reload=True)
