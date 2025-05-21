@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <title>Index</title>
-    <link rel="stylesheet" type="text/css"  href="{{ url_for('assets', path='/css/index.css') }}">
-    <link rel="stylesheet" type="text/css"  href="{{ url_for('assets', path='/css/reset.css') }}">
+    <link rel="stylesheet" type="text/css"  href="/assets/css/index.css">
+    <link rel="stylesheet" type="text/css"  href="/assets/css/reset.css">
 </head>
 <body>
     {% include 'layout/header.html' %}
@@ -12,6 +12,7 @@
         <a class="logo" href="/lostark">BLOCK_1</a>
         <a class="logo" href="/maple">BLOCK_2</a>
         <a class="logo" href="/dnf">BLOCK_3</a>
+        <progress min="0" max="100" value="66">66</progress>
     </div>
     {% include 'layout/footer.html' %}
 </body>
