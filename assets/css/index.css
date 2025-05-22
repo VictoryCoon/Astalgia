@@ -85,20 +85,3 @@
 .content .category-frame .equips .equip .e_caption{
 
 }
-
-.main {
-    border:1px solid #000;
-    display:flex;
-    justify-content:center;  /* space-around, center */
-    align-items:center;
-    height: 80dvh;
-    gap:5rem;
-}
-
-.logo {
-    border-radius:0.2rem;
-    background-color:var(--es-color);
-    box-shadow:0rem 0rem 1rem 0.3rem #52535B;
-    width:9rem;
-    height:9rem;
-}

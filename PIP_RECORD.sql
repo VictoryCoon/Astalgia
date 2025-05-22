@@ -121,7 +121,7 @@ gcloud iam service-accounts add-iam-policy-binding projects/astalgia/serviceAcco
 
 gcloud run deploy astalgia \
     --source . \
-    --region asia-northeast3 \
+    --region asia-northeast1 \
     --platform managed \
     --allow-unauthenticated \
     --build-service-account=projects/astalgia/serviceAccounts/astalgia@astalgia.iam.gserviceaccount.com \
