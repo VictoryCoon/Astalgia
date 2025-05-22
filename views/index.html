@@ -11,9 +11,11 @@
     {% include 'layout/navigator.html' %}
     <div class="main">
         <div class="unit">
-            <div>Title</div>
-            <button class="func-btn">{% include 'layout/func/reload.html' %}</button>
-            <button class="func-btn">{% include 'layout/func/chart.html' %}</button>
+            <div class="unit-header">
+                <span>찬란한 명예의 돌파석</span>
+                <button class="func-btn">{% include 'layout/func/chart.html' %}</button><!-- OnClick Ajax-->
+                <button class="func-btn">{% include 'layout/func/reload.html' %}</button>
+            </div>
         </div>
         <div class="unit">S2</div>
         <div class="unit">S3</div>
