@@ -101,7 +101,9 @@ body {
 
 /* Navigator */
 .nav{   /* PC Mode */
-    margin-top:3rem;
+    position:fixed;
+    top:3rem;
+    left:0;
     background-color:var(--bg-abrelshud-color-lv4);
     display:flex;
     flex-direction:column;
@@ -111,12 +113,37 @@ body {
     width:3rem;
     height:100dvh;
 }
+
 .nav .item{
+    background-color:var(--bg-abrelshud-color-lv4);
+    cursor:pointer;
+    display:flex;
+    border:0;
+    justify-content:center;
+    align-items:center;
     height:3rem;
+    width:3rem;
+    box-shadow:color-mix(in srgb, rgb(0, 0, 0) 30%, transparent) 0 1px 2px 0, color-mix(in srgb, rgb(0, 0, 0) 15%, transparent) 0 2px 6px 2px;
+    transition: 0.6;
+}
+
+.nav .item svg {
+    fill:var(--bg-white-color-lv1);
+    transition: 0.6s;
+}
+
+.nav .item:hover {
+    background-color:var(--bg-white-color-lv1);
+    transition: 0.6s;
+}
+.nav .item svg:hover {
+    fill:var(--bg-abrelshud-color-lv5);
+    transition: 0.6s;
 }
 
 .main {
     margin-top:3rem;
+    margin-left:3rem;
     padding:0.5rem;
     display:flex;
     flex-direction:row;
@@ -124,7 +151,6 @@ body {
     justify-content:flex-start;  /* space-around, center */
     align-items:flex-start;
     height:auto;
-    flex-grow:1;
     width:100%;
     gap:0.5rem;
 }
@@ -153,4 +179,32 @@ body {
 }
 .ht {
     width:36rem;
+}
+
+/* Reload Button*/
+.func-btn {
+    background-color:var(--bg-white-color-lv1);
+    fill:var(--bg-abrelshud-color-lv5);
+    cursor:pointer;
+    display:flex;
+    border-radius:50%;
+    border:0;
+    justify-content:center;
+    align-items:center;
+    width:2rem;
+    height:2rem;
+    box-shadow:color-mix(in srgb, rgb(0, 0, 0) 30%, transparent) 0 1px 2px 0, color-mix(in srgb, rgb(0, 0, 0) 15%, transparent) 0 2px 6px 2px;
+    transition: 0.6;
+}
+.func-btn:hover {
+    background-color:var(--bg-abrelshud-color-lv5);
+    transition: 0.6s;
+}
+.func-btn svg {
+    fill:var(--bg-abrelshud-color-lv4);
+    transition: 0.6s;
+}
+.func-btn svg:hover {
+    fill:#FFFFFF;
+    transition: 0.6s;
 }

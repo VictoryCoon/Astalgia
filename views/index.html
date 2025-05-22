@@ -8,17 +8,16 @@
 </head>
 <body>
     {% include 'layout/header.html' %}
-    <div class="nav">
-        <div class="item">1</div>
-        <div class="item">2</div>
-        <div class="item">3</div>
-        <div class="item">4</div>
-    </div>
+    {% include 'layout/navigator.html' %}
     <div class="main">
-        <div class="unit">S1</div>
+        <div class="unit">
+            <div>Title</div>
+            <button class="func-btn">{% include 'layout/func/reload.html' %}</button>
+            <button class="func-btn">{% include 'layout/func/chart.html' %}</button>
+        </div>
         <div class="unit">S2</div>
         <div class="unit">S3</div>
-        <div class="unit ">S4</div>
+        <div class="unit">S4</div>
         <div class="unit">S5</div>
         <div class="unit">S6</div>
         <div class="unit">S7</div>
