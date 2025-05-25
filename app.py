@@ -12,7 +12,7 @@ app.mount("/assets", StaticFiles(directory="assets"), name="assets")
 
 app.include_router(Root.router)
 
-app.include_router(LostArk.router)
+app.include_router(LostArk.app)
 app.include_router(LostArkCharacter.router)
 
 port = int(os.environ.get("PORT", 10000))

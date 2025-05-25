@@ -2,19 +2,19 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 <div class="nav">
-    <div class="item">
+    <div class="item" onClick="getItemList('all');">
         {% include 'layout/func/all.html' %}
     </div>
-    <div class="item">
+    <div class="item" onClick="getItemList('mat');">
         {% include 'layout/func/level.html' %}
     </div>
-    <div class="item">
+    <!--<div class="item" onClick="getItemList('all');">
         {% include 'layout/func/cristal.html' %}
-    </div>
-    <div class="item">
+    </div>-->
+    <div class="item" onClick="getItemList('egv');">
         {% include 'layout/func/book.html' %}
     </div>
-    <div class="item">
+    <div class="item" onClick="getItemList('frm');">
         {% include 'layout/func/life.html' %}
     </div>
 </div>

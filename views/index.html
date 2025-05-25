@@ -5,25 +5,78 @@
     <title>Astalgia</title>
     <link rel="stylesheet" type="text/css"  href="/assets/css/index.css">
     <link rel="stylesheet" type="text/css"  href="/assets/css/reset.css">
+    <script type="text/javascript" src="/assets/js/Ajax.js"></script>
 </head>
-<body>
-<script src="/assets/js/Ajax.js">
+<script type="text/javascript">
+    function getItemList(type,pattern="",sort=""){
+        path = "";
+        data = "";
+        if(pattern.length != 0 && sort.length != 0){
+            data = pattern+","+sort;
+        }else if(pattern.length != 0){
+            data = pattern;
+        }else if(sort.length != 0){
+            data = sort;
+        }else{
+            data = "";
+        }
 
+        switch (type) {
+            case "all":
+                path = "allItemList";
+                break;
+            case "egv":
+                path = "engravingList";
+                break;
+            case "mat":
+                path = "materialList";
+                break;
+            case "frm":
+                path = "farmingList";
+                break;
+        }
+        ajax("GET",path,data)
+        .then(response => {
+            var htmls = "";
+            data = JSON.parse(response)
+            data.forEach((item)=>{
+                htmls += "<div class='unit'>";
+                htmls += "    <div class='unit-header'>";
+                htmls += "        <input type='hidden' value='"+item.Id+"'/>";
+                htmls += "        <span class='itemName'>"+item.Name+"</span>";
+                htmls += "        <button class='func-btn' value='"+item.Id+"'><svg xmlns='http://www.w3.org/2000/svg' height='24px' viewBox='0 -960 960 960' width='24px' fill='#1f1f1f'><path d='M280-280h80v-200h-80v200Zm320 0h80v-400h-80v400Zm-160 0h80v-120h-80v120Zm0-200h80v-80h-80v80ZM200-120q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h560q33 0 56.5 23.5T840-760v560q0 33-23.5 56.5T760-120H200Zm0-80h560v-560H200v560Zm0-560v560-560Z'/></svg></button>";
+                htmls += "        <button class='func-btn' value='"+item.Id+"'><svg xmlns='http://www.w3.org/2000/svg' height='24px' viewBox='0 -960 960 960' width='24px' fill='#1f1f1f'><path d='M480-160q-134 0-227-93t-93-227q0-134 93-227t227-93q69 0 132 28.5T720-690v-110h80v280H520v-80h168q-32-56-87.5-88T480-720q-100 0-170 70t-70 170q0 100 70 170t170 70q77 0 139-44t87-116h84q-28 106-114 173t-196 67Z'/></svg></button>";
+                htmls += "    </div>";
+                htmls += "</div>";
+            });
+            itemBox = document.getElementById("marketList");
+            itemBox.innerHTML = htmls;
+        })
+        .catch(error => {
+            console.log("데이터 로드 실패:", error);
+        });
+    }
+
+    function reload(){
+        type = document.getElementById("currentType").value;
+        getItemList(type);
+    }
 </script>
+<body>
+    <input type="hidden" id="currentType" value="all"/>
     {% include 'layout/header.html' %}
     {% include 'layout/navigator.html' %}
-    <div class="main">
+    <div class="main" id="marketList">
         <div class="unit">
             <div class="unit-header">
-                <span>찬란한 명예의 돌파석</span>
+                <button class="input_btn" onClick="getItemList('all','아드','ASC');">호출</button>
                 <button class="func-btn">{% include 'layout/func/chart.html' %}</button><!-- OnClick Ajax-->
                 <button class="func-btn">{% include 'layout/func/reload.html' %}</button>
             </div>
+            <div class="unit-body">
+                여기디자인
+            </div>
         </div>
-        <form class="form_box" id="searchForm" action="/" method="get">
-            <input class="input_box" type="text" name="itemName" id="itemName" placeholder="" maxlength="18" value="아비도스"/>
-            <button class="input_btn" type="submit">호출</button>
-        </form>
         <div class="unit">S2</div>
         <div class="unit">S3</div>
         <div class="unit">S4</div>
