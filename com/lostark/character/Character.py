@@ -1,7 +1,5 @@
 import os
 
-from googleapiclient.mimeparse import quality
-
 from com.util.MyTypeUtil import clean_json_data, remove_double_side_pattern, clean_double_side_data, clean_without_number
 import json
 from bs4 import BeautifulSoup

@@ -136,7 +136,7 @@ body {
     background-color:var(--bg-white-color-lv1);
     transition: 0.6s;
 }
-.nav .item svg:hover {
+.nav .item:hover svg {
     fill:var(--bg-abrelshud-color-lv5);
     transition: 0.6s;
 }
@@ -211,7 +211,7 @@ body {
     fill:var(--bg-abrelshud-color-lv4);
     transition: 0.6s;
 }
-.func-btn svg:hover {
+.func-btn:hover svg {
     fill:#FFFFFF;
     transition: 0.6s;
 }
