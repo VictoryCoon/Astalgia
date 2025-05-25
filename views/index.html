@@ -7,6 +7,9 @@
     <link rel="stylesheet" type="text/css"  href="/assets/css/reset.css">
 </head>
 <body>
+<script src="/assets/js/Ajax.js">
+
+</script>
     {% include 'layout/header.html' %}
     {% include 'layout/navigator.html' %}
     <div class="main">
@@ -17,6 +20,10 @@
                 <button class="func-btn">{% include 'layout/func/reload.html' %}</button>
             </div>
         </div>
+        <form class="form_box" id="searchForm" action="/" method="get">
+            <input class="input_box" type="text" name="itemName" id="itemName" placeholder="" maxlength="18" value="아비도스"/>
+            <button class="input_btn" type="submit">호출</button>
+        </form>
         <div class="unit">S2</div>
         <div class="unit">S3</div>
         <div class="unit">S4</div>
