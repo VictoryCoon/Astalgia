@@ -213,7 +213,6 @@ body {
 
 .unit-body {
     display:flex;
-    font-weight:bold;
     flex-direction:column;
     justify-content:center;
     box-sizing:border-box;

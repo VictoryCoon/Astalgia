@@ -50,6 +50,7 @@ async def AllItemList(param:Optional[str]=None):
         farmings = await FarmingList(param)
 
     itemAll = engravings + materials + farmings
+    print(itemAll)
     return itemAll
 
 @app.get("/itemInfoById/{id}")
