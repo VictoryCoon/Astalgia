@@ -39,7 +39,7 @@
             htmls += "    <div class='unit-body'>";
             htmls += "        <span>평균가격 : "+data[0].YDayAvgPrice.toLocaleString('ko-KR')+"</span>";
             htmls += "        <span>최저가격 : "+data[0].CurrentMinPrice.toLocaleString('ko-KR')+"</span>";
-            htmls += "        <span>최근가격 : "+data[0].RecentPrice.toLocaleString('ko-KR')+"</span>";
+            htmls += "        <span>현재가격 : "+data[0].RecentPrice.toLocaleString('ko-KR')+"</span>";
             htmls += "    </div>";
             resetUnit.innerHTML = htmls;
         })
@@ -77,9 +77,17 @@
         }
         ajax("GET",path,data)
         .then(res => {
+            var typeCmp = "";
             var htmls = "";
             data = JSON.parse(res);
-            data.forEach((item)=>{
+            data.forEach((item,idx)=>{
+                /*
+                if(idx>0){
+                    if(typeCmp != item.Type){
+                        console.log("타입이 변경됨 : "+typeCmp+","+item.Type);
+                    }
+                }
+                */
                 htmls += "<div class='unit' id='"+item.Id+"'>";
                 htmls += "    <div class='unit-header' style='background-image:url("+item.Icon+");'>";
                 htmls += "        <span class='itemName'>"+item.Name+"</span>";
@@ -89,9 +97,10 @@
                 htmls += "    <div class='unit-body'>";
                 htmls += "        <span>평균가격 : "+item.YDayAvgPrice.toLocaleString('ko-KR')+"</span>";
                 htmls += "        <span>최저가격 : "+item.CurrentMinPrice.toLocaleString('ko-KR')+"</span>";
-                htmls += "        <span>최근가격 : "+item.RecentPrice.toLocaleString('ko-KR')+"</span>";
+                htmls += "        <span>현재가격 : "+item.RecentPrice.toLocaleString('ko-KR')+"</span>";
                 htmls += "    </div>";
                 htmls += "</div>";
+                typeCmp = item.Type;
             });
             itemBox = document.getElementById("marketList");
             itemBox.innerHTML = htmls;
