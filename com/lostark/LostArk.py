@@ -35,7 +35,7 @@ living_fish = os.getenv("FARMING_FISH_LIST").split("|")
 living_arch = os.getenv("FARMING_ARCH_LIST").split("|")
 
 @app.get("/allItemList/{param}")
-@app.get("/allItemList/")
+@app.get("/allItemList")
 async def AllItemList(param:Optional[str]=None):
     if param is None:
         engravings = await EngravingList()

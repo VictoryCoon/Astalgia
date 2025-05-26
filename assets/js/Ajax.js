@@ -1,14 +1,13 @@
-const xhr = new XMLHttpRequest();
-
 function ajax(method, url, data) {
-    return new Promise((resolve, reject) => { // Promise 반환
+    return new Promise((resolve, reject) => {
+        const xhr = new XMLHttpRequest();
         if (method === 'GET') {
             if(data.length != 0){
                 url += `/${encodeURIComponent(data)}`;
             }
         }
         document.getElementById("curtain").style.display = "flex";
-        xhr.open(method, url, true);
+        xhr.open(method, "/"+url, true);
         if (method === 'POST') {
             xhr.setRequestHeader('Content-type','application/json');
             xhr.send(JSON.stringify({data:data}));
@@ -30,26 +29,3 @@ function ajax(method, url, data) {
         };
     });
 }
-
-/*
-function ajax(method,url,data){
-    if(method == 'GET'){
-        url += `/${encodeURIComponent(data)}`;
-    }
-    xhr.open(method, url, true);
-    if(method == 'POST'){
-        xhr.setRequestHeader('Content-type', 'application/json');
-        xhr.send(JSON.stringify({data: data}));
-    }else{
-        xhr.send();
-    }
-    xhr.onload = () => {
-        if (xhr.status == 200) {
-            console.log("Success");
-            return xhr.response;
-        } else {
-            console.log("Failed");
-            return false;
-        }
-    }
-}*/
