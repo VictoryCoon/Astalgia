@@ -57,7 +57,7 @@ async def ItemInfoById(id:str):
     print(f'검색할 아이템 ID : {id}')
     url = HOST + f"markets/items/{id}"
     item_info = requests.get(url, headers=REQUEST_HEADER)
-    print(item_info.json()[1])  # 왜 0번 index는 가격값이 전부 0원인지, 난 모른다.
+    print(item_info.json()[1])  # 왜 0번 index는 값이 전부 0원인지, 난 모른다.
     return item_info.json()[1]
 
 @app.get("/itemInfoByName/{name}")

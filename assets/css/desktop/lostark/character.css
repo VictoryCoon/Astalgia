@@ -12,6 +12,15 @@
  * 1em = 16px(default). It is depends on mother content.
  * 1rem = 1em, It is depends on root content.
  */
+
+
+ body{
+    margin:0;
+    width:100vw;
+    height:95vh;
+    justify-content:center;
+}
+
 .wrap{
     display:flex;
     justify-content:center;
