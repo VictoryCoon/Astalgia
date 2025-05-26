@@ -49,13 +49,25 @@ async def AllItemList(param:Optional[str]=None):
     itemAll = engravings + materials + farmings
     return itemAll
 
-@app.get("/itemInfo/{id}")
-async def ItemInfo(id:str):
+@app.get("/itemInfoById/{id}")
+async def ItemInfoById(id:str):
     print(f'검색할 아이템 ID : {id}')
     url = HOST + f"markets/items/{id}"
     item_info = requests.get(url, headers=REQUEST_HEADER)
-    print(item_info.json())
-    return item_info.json()
+    print(item_info.json()[1])  # 왜 0번 index는 가격값이 전부 0원인지, 난 모른다.
+    return item_info.json()[1]
+
+@app.get("/itemInfoByName/{name}")
+async def ItemInfoById(name:str):
+    print(f'검색할 아이템 Name : {name}')
+    only_search_obj_egv = {"Sort":"CURRENT_MIN_PRICE","ItemName":name,"ItemGrade":"유물","CategoryCode":engraving_code,"PageNo":1,"SortCondition":"DESC"}
+    only_search_obj_mat = {"Sort":"CURRENT_MIN_PRICE","ItemName":name,"CategoryCode":material_code,"PageNo":1,"SortCondition":"DESC"}
+    only_search_obj_frm = {"Sort":"CURRENT_MIN_PRICE","ItemName":name,"CategoryCode":farming_code,"PageNo":1,"SortCondition":"DESC"}
+    only_search_egv_return = requests.post(market_items,json=only_search_obj_egv,headers=REQUEST_HEADER)
+    only_search_mat_return = requests.post(market_items,json=only_search_obj_mat,headers=REQUEST_HEADER)
+    only_search_frm_return = requests.post(market_items,json=only_search_obj_frm,headers=REQUEST_HEADER)
+    only_search_info = only_search_egv_return.json()["Items"] + only_search_mat_return.json()["Items"] + only_search_frm_return.json()["Items"]
+    return only_search_info
 
 @app.get("/engravingList/{param}")
 @app.get("/engravingList")

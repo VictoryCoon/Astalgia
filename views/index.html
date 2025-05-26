@@ -6,11 +6,51 @@
     <link rel="stylesheet" type="text/css"  href="/assets/css/index.css">
     <link rel="stylesheet" type="text/css"  href="/assets/css/reset.css">
     <script type="text/javascript" src="/assets/js/Ajax.js"></script>
+    <script type="module" src="/assets/js/Spin.js"></script>
 </head>
 <script type="text/javascript">
+    document.addEventListener("DOMContentLoaded", function(){
+        getItemList('all');
+    });
+    function statistic(id){
+        ajax("GET","itemInfoById",id)
+        .then(res => {
+            data = JSON.parse(res);
+            data.Stats.forEach((stat)=>{
+                //console.log(stat);
+            });
+        })
+        .catch(error => {
+            console.log("Statistics Load Failed:", error);
+        });
+    }
+    function reloadOne(id,name){
+        alert("리로드 : "+id+","+name);
+        ajax("GET","itemInfoByName",name)
+        .then(res => {
+            htmls = "";
+            data = JSON.parse(res);
+            resetUnit = document.getElementById(data[0].Id);
+            htmls += "    <div class='unit-header' style='background-image:url("+data[0].Icon+");>";
+            htmls += "        <span class='itemName'>"+data[0].Name+"</span>";
+            htmls += "        <button class='func-btn' value='"+data[0].Id+"' onClick='statistic("+data[0].Id+")'>{% include 'layout/func/chart.html' %}</button>";
+            htmls += "        <button class='func-btn' value='"+data[0].Id+"' onClick='reloadOne("+data[0].Id+",\""+data[0].Name+"\")'>{% include 'layout/func/reload.html' %}</button>";
+            htmls += "    </div>";
+            htmls += "    <div class='unit-body'>";
+            htmls += "        <span>평균가격 : "+data[0].YDayAvgPrice.toLocaleString('ko-KR')+"</span>";
+            htmls += "        <span>최저가격 : "+data[0].CurrentMinPrice.toLocaleString('ko-KR')+"</span>";
+            htmls += "        <span>최근가격 : "+data[0].RecentPrice.toLocaleString('ko-KR')+"</span>";
+            htmls += "    </div>";
+            resetUnit.innerHTML = htmls;
+        })
+        .catch(error => {
+            console.log("Data Reload Failed:", error);
+        });
+    }
     function getItemList(type,pattern="",sort=""){
         path = "";
         data = "";
+        document.getElementById("currentType").value = type;
         if(pattern.length != 0 && sort.length != 0){
             data = pattern+","+sort;
         }else if(pattern.length != 0){
@@ -36,16 +76,20 @@
                 break;
         }
         ajax("GET",path,data)
-        .then(response => {
+        .then(res => {
             var htmls = "";
-            data = JSON.parse(response)
+            data = JSON.parse(res);
             data.forEach((item)=>{
-                htmls += "<div class='unit'>";
-                htmls += "    <div class='unit-header'>";
-                htmls += "        <input type='hidden' value='"+item.Id+"'/>";
+                htmls += "<div class='unit' id='"+item.Id+"'>";
+                htmls += "    <div class='unit-header' style='background-image:url("+item.Icon+");'>";
                 htmls += "        <span class='itemName'>"+item.Name+"</span>";
-                htmls += "        <button class='func-btn' value='"+item.Id+"'><svg xmlns='http://www.w3.org/2000/svg' height='24px' viewBox='0 -960 960 960' width='24px' fill='#1f1f1f'><path d='M280-280h80v-200h-80v200Zm320 0h80v-400h-80v400Zm-160 0h80v-120h-80v120Zm0-200h80v-80h-80v80ZM200-120q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h560q33 0 56.5 23.5T840-760v560q0 33-23.5 56.5T760-120H200Zm0-80h560v-560H200v560Zm0-560v560-560Z'/></svg></button>";
-                htmls += "        <button class='func-btn' value='"+item.Id+"'><svg xmlns='http://www.w3.org/2000/svg' height='24px' viewBox='0 -960 960 960' width='24px' fill='#1f1f1f'><path d='M480-160q-134 0-227-93t-93-227q0-134 93-227t227-93q69 0 132 28.5T720-690v-110h80v280H520v-80h168q-32-56-87.5-88T480-720q-100 0-170 70t-70 170q0 100 70 170t170 70q77 0 139-44t87-116h84q-28 106-114 173t-196 67Z'/></svg></button>";
+                htmls += "        <button class='func-btn' value='"+item.Id+"' onClick='statistic("+item.Id+")'>{% include 'layout/func/chart.html' %}</button>";
+                htmls += "        <button class='func-btn' value='"+item.Id+"' onClick='reloadOne("+item.Id+",\""+item.Name+"\")'>{% include 'layout/func/reload.html' %}</button>";
+                htmls += "    </div>";
+                htmls += "    <div class='unit-body'>";
+                htmls += "        <span>평균가격 : "+item.YDayAvgPrice.toLocaleString('ko-KR')+"</span>";
+                htmls += "        <span>최저가격 : "+item.CurrentMinPrice.toLocaleString('ko-KR')+"</span>";
+                htmls += "        <span>최근가격 : "+item.RecentPrice.toLocaleString('ko-KR')+"</span>";
                 htmls += "    </div>";
                 htmls += "</div>";
             });
@@ -53,7 +97,7 @@
             itemBox.innerHTML = htmls;
         })
         .catch(error => {
-            console.log("데이터 로드 실패:", error);
+            console.log("Data Load Failed:", error);
         });
     }
 
@@ -64,34 +108,10 @@
 </script>
 <body>
     <input type="hidden" id="currentType" value="all"/>
+    {% include 'layout/spin.html' %}
     {% include 'layout/header.html' %}
     {% include 'layout/navigator.html' %}
-    <div class="main" id="marketList">
-        <div class="unit">
-            <div class="unit-header">
-                <button class="input_btn" onClick="getItemList('all','아드','ASC');">호출</button>
-                <button class="func-btn">{% include 'layout/func/chart.html' %}</button><!-- OnClick Ajax-->
-                <button class="func-btn">{% include 'layout/func/reload.html' %}</button>
-            </div>
-            <div class="unit-body">
-                여기디자인
-            </div>
-        </div>
-        <div class="unit">S2</div>
-        <div class="unit">S3</div>
-        <div class="unit">S4</div>
-        <div class="unit">S5</div>
-        <div class="unit">S6</div>
-        <div class="unit">S7</div>
-        <div class="unit">S8</div>
-        <div class="unit">S9</div>
-        <div class="unit">S0</div>
-        <!--
-        <a class="logo" href="/lostark">BLOCK_1</a>
-        <a class="logo" href="/maple">BLOCK_2</a>
-        <a class="logo" href="/dnf">BLOCK_3</a>
-        -->
-    </div>
+    <div class="main" id="marketList"></div>
     {% include 'layout/footer.html' %}
 </body>
 </html>
