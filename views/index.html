@@ -13,6 +13,7 @@
         getItemList('all');
     });
     function statistic(id){
+        alert("미구현, 아이템 별 통계:"+id);
         ajax("GET","itemInfoById",id)
         .then(res => {
             data = JSON.parse(res);
@@ -25,7 +26,6 @@
         });
     }
     function reloadOne(id,name){
-        alert("리로드 : "+id+","+name);
         ajax("GET","itemInfoByName",name)
         .then(res => {
             htmls = "";
