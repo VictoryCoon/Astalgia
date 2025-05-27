@@ -8,20 +8,16 @@
     <!-- Mobile Environment -->
     <link rel="stylesheet" type="text/css" href="/assets/css/mobile/reset.css" media="only screen and (min-width:200px) and (max-width:480px)">
     <script type="text/javascript" src="/assets/js/Ajax.js"></script>
-    <script type="module" src="/assets/js/Spin.js"></script>
 </head>
 <script type="text/javascript">
     document.addEventListener("DOMContentLoaded", function(){
-        getItemList('all');
+        //getItemList('all');
     });
-    function statistic(id){
-        alert("미구현, 아이템 별 통계:"+id);
+    function statistic(id,name){
         ajax("GET","itemInfoById",id)
         .then(res => {
             data = JSON.parse(res);
-            data.Stats.forEach((stat)=>{
-                //console.log(stat);
-            });
+            drawChart(data.Stats,name);
         })
         .catch(error => {
             console.log("Statistics Load Failed:", error);
@@ -35,7 +31,7 @@
             resetUnit = document.getElementById(data[0].Id);
             htmls += "    <div class='unit-header' style='background-image:url("+data[0].Icon+");'>";
             htmls += "        <span class='itemName'>"+data[0].Name+"</span>";
-            htmls += "        <button class='func-btn' value='"+data[0].Id+"' onClick='statistic("+data[0].Id+")'>{% include 'layout/func/chart.html' %}</button>";
+            htmls += "        <button class='func-btn' value='"+data[0].Id+"' onClick='statistic("+data[0].Id+",\""+data[0].Name+"\")'>{% include 'layout/func/chart.html' %}</button>";
             htmls += "        <button class='func-btn' value='"+data[0].Id+"' onClick='reloadOne("+data[0].Id+",\""+data[0].Name+"\")'>{% include 'layout/func/reload.html' %}</button>";
             htmls += "    </div>";
             htmls += "    <div class='unit-body'>";
@@ -93,7 +89,7 @@
                 htmls += "<div class='unit' id='"+item.Id+"'>";
                 htmls += "    <div class='unit-header' style='background-image:url("+item.Icon+");'>";
                 htmls += "        <span class='itemName'>"+item.Name+"</span>";
-                htmls += "        <button class='func-btn' value='"+item.Id+"' onClick='statistic("+item.Id+")'>{% include 'layout/func/chart.html' %}</button>";
+                htmls += "        <button class='func-btn' value='"+item.Id+"' onClick='statistic("+item.Id+",\""+item.Name+"\")'>{% include 'layout/func/chart.html' %}</button>";
                 htmls += "        <button class='func-btn' value='"+item.Id+"' onClick='reloadOne("+item.Id+",\""+item.Name+"\")'>{% include 'layout/func/reload.html' %}</button>";
                 htmls += "    </div>";
                 htmls += "    <div class='unit-body'>";
@@ -120,6 +116,7 @@
 <body>
     <input type="hidden" id="currentType" value="all"/>
     {% include 'layout/spin.html' %}
+    {% include 'layout/stat.html' %}
     {% include 'layout/header.html' %}
     {% include 'layout/navigator.html' %}
     <div class="main" id="marketList"></div>

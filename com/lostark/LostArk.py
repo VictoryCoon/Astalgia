@@ -55,15 +55,15 @@ async def AllItemList(param:Optional[str]=None):
 
 @app.get("/itemInfoById/{id}")
 async def ItemInfoById(id:str):
-    #print(f'검색할 아이템 ID : {id}')
     url = HOST + f"markets/items/{id}"
     item_info = requests.get(url, headers=REQUEST_HEADER)
-    #print(item_info.json()[1])  # 왜 0번 index는 값이 전부 0원인지, 난 모른다.
-    return item_info.json()[1]
+    if len(item_info.json()) > 1:
+        return item_info.json()[1]
+    else:
+        return item_info.json()[0]
 
 @app.get("/itemInfoByName/{name}")
 async def ItemInfoById(name:str):
-    #print(f'검색할 아이템 Name : {name}')
     only_search_obj_egv = {"Sort":"CURRENT_MIN_PRICE","ItemName":name,"ItemGrade":"유물","CategoryCode":engraving_code,"PageNo":1,"SortCondition":"DESC"}
     only_search_obj_mat = {"Sort":"CURRENT_MIN_PRICE","ItemName":name,"CategoryCode":material_code,"PageNo":1,"SortCondition":"DESC"}
     only_search_obj_frm = {"Sort":"CURRENT_MIN_PRICE","ItemName":name,"CategoryCode":farming_code,"PageNo":1,"SortCondition":"DESC"}

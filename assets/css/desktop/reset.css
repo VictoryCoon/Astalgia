@@ -85,6 +85,7 @@ body {
 }
 
 
+/* Loading Background */
 .curtain {
     display:flex;
     position:fixed;
@@ -103,6 +104,72 @@ body {
 .curtain .loading {
     width:3rem;
     height:3rem;
+}
+
+.overlay {
+    display:flex;
+    position:fixed;
+    flex-direction:column;
+    box-sizing:border-box;
+    justify-content:center;
+    align-items:center;
+    top:0;
+    left:0;
+    width:100vmax;
+    height:100%;
+    z-index:2147483647;
+    background-color:rgba(0,0,0,0.5);
+    transition:0.6s;
+}
+.overlay .canvasFrame {
+    display:flex;
+    padding-top:0;
+    padding-left:3rem;
+    padding-right:3rem;
+    padding-bottom:0;
+    width:42rem;
+    height:42rem;
+    border-radius:0.5rem;
+    background-color:var(--bg-white-color-lv1);
+    flex-direction:column;
+    box-sizing:border-box;
+    justify-content:center;
+    align-items:center;
+    box-shadow:color-mix(in srgb, rgb(0, 0, 0) 30%, transparent) 0 1px 2px 0, color-mix(in srgb, rgb(0, 0, 0) 15%, transparent) 0 2px 6px 2px;
+}
+
+.overlay .canvasFrame .canvasHeader{
+    display:flex;
+    margin:0;
+    width:100%;
+    justify-content:space-between;
+    align-items:center;
+}
+
+.overlay .canvasFrame .canvasHeader span{
+    display:flex;
+}
+
+.overlay .canvasFrame .canvasHeader .escapeButton svg{
+    width:1.5rem;
+    height:1.5rem;
+    box-sizing:border-box;
+    fill:var(--bg-abrelshud-color-lv4);
+    transition:0.3s;
+}
+
+.overlay .canvasFrame .canvasHeader .escapeButton:hover {
+    cursor:pointer;
+}
+
+.overlay .canvasFrame .statCanvas {
+    display:flex;
+    margin:0;
+    padding:0;
+    flex-direction:column;
+    box-sizing:border-box;
+    justify-content:center;
+    align-items:center;
 }
 
 /* Header */

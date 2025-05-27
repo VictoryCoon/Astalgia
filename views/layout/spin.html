@@ -1,19 +1,18 @@
 <head>
-    <link rel="stylesheet" type="text/css"  href="/assets/css/spin.css">
-    <!--<script type="module", src="../../assets/js/Spin.js"></script>-->
-    <script type="module" src="/assets/js/Spin.js"></script>
+    <link rel="stylesheet" type="text/css"  href="/assets/css/desktop/spin.css" media="only screen and (min-width:480px)">
+    <link rel="stylesheet" type="text/css"  href="/assets/css/mobile/spin.css" media="only screen and (min-width:200px) and (max-width:480px)">
+    <script type="module" src="/assets/js/Spin.umd.js"></script>
 </head>
 <script type="text/javascript">
     document.addEventListener("DOMContentLoaded", function(){
-    });
         var opts = {
             lines: 13, // The number of lines to draw
-            length: 38, // The length of each line
-            width: 17, // The line thickness
-            radius: 45, // The radius of the inner circle
-            scale: 0.35, // Scales overall size of the spinner
+            length: 13, // The length of each line
+            width: 6, // The line thickness
+            radius: 19, // The radius of the inner circle
+            scale: 0.55, // Scales overall size of the spinner
             corners: 1, // Corner roundness (0..1)
-            speed: 1, // Rounds per second
+            speed: 0.9, // Rounds per second
             rotate: 0, // The rotation offset
             animation: 'spinner-line-fade-quick', // The CSS animation name for the lines
             direction: 1, // 1: clockwise, -1: counterclockwise
@@ -28,6 +27,8 @@
         };
 
         var target = document.getElementById('spinning');
+        var spinner = new Spin.Spinner(opts).spin(target);
+    });
 </script>
 <div class="curtain" style="display:none;" id="curtain">
     <span class="loading" id="spinning"></span>

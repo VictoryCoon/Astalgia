@@ -1,0 +1,75 @@
+<head>
+    <script type="module" src="/assets/js/Chart.umd.min.js"></script>
+</head>
+<script type="text/javascript">
+    //Chart
+    let priceStatistics = null;
+    let tradeStatistics = null;
+    function drawChart(stats,name){
+        if (priceStatistics) {
+            priceStatistics.destroy();
+        }
+        if (tradeStatistics) {
+            tradeStatistics.destroy();
+        }
+
+        let priceChart = document.getElementById('statisticsPriceChart');
+        let tradeChart = document.getElementById('statisticsTradeChart');
+        document.getElementById('overlay').style.display = 'flex';
+        var prices = [];
+        var period = [];
+        var trades = [];
+        stats.forEach((price,idx)=>{
+            prices[idx] = price.AvgPrice;
+            period[idx] = price.Date.substring(5);
+            trades[idx] = price.TradeCount;
+        });
+
+        priceStatistics = new Chart(priceChart, {
+            type: 'bar',
+            data: {
+                labels: period,   //Date
+                datasets: [
+                    {
+                        label: name+" 평균가격 추이",
+                        data: prices,
+                        backgroundColor:'#C2A1E8',
+                        barPercentage:0.5,
+                    }
+                ],
+            },
+        });
+        tradeStatistics = new Chart(tradeChart, {
+            type: 'line',
+            data: {
+                labels: period,   //Date
+                datasets: [
+                    {
+                        label: name+" 거래량 추이",
+                        data: trades,
+                        backgroundColor:'#C2A1E8',
+                        barPercentage:0.5,
+                    }
+                ],
+            },
+        });
+    }
+
+    function statisticsClose(){
+        document.getElementById('overlay').style.display = 'none';
+    }
+</script>
+<div class="overlay" style="display:none;" id="overlay">
+    <div class="canvasFrame">
+        <div class="canvasHeader">
+            <span>
+
+            </span>
+            <span class="escapeButton" onClick="statisticsClose()">
+                {% include 'layout/func/exit.html' %}
+            </span>
+        </div>
+        <canvas class="statCanvas" id="statisticsPriceChart"></canvas>
+        <canvas class="statCanvas" id="statisticsTradeChart"></canvas>
+    </div>
+</div>
