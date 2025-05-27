@@ -106,6 +106,7 @@ body {
     height:3rem;
 }
 
+/* Statistics Frame */
 .overlay {
     display:flex;
     position:fixed;
