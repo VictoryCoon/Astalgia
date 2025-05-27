@@ -35,9 +35,9 @@
             htmls += "        <button class='func-btn' value='"+data[0].Id+"' onClick='reloadOne("+data[0].Id+",\""+data[0].Name+"\")'>{% include 'layout/func/reload.html' %}</button>";
             htmls += "    </div>";
             htmls += "    <div class='unit-body'>";
-            htmls += "        <span>평균가격 : "+data[0].YDayAvgPrice.toLocaleString('ko-KR')+"</span>";
+            htmls += "        <span>전일평균 : "+data[0].YDayAvgPrice.toLocaleString('ko-KR')+"</span>";
+            htmls += "        <span>최근거래 : "+data[0].RecentPrice.toLocaleString('ko-KR')+"</span>";
             htmls += "        <span>최저가격 : "+data[0].CurrentMinPrice.toLocaleString('ko-KR')+"</span>";
-            htmls += "        <span>현재가격 : "+data[0].RecentPrice.toLocaleString('ko-KR')+"</span>";
             htmls += "    </div>";
             resetUnit.innerHTML = htmls;
         })
@@ -93,9 +93,9 @@
                 htmls += "        <button class='func-btn' value='"+item.Id+"' onClick='reloadOne("+item.Id+",\""+item.Name+"\")'>{% include 'layout/func/reload.html' %}</button>";
                 htmls += "    </div>";
                 htmls += "    <div class='unit-body'>";
-                htmls += "        <span>평균가격 : "+item.YDayAvgPrice.toLocaleString('ko-KR')+"</span>";
+                htmls += "        <span>전일평균 : "+item.YDayAvgPrice.toLocaleString('ko-KR')+"</span>";
+                htmls += "        <span>최근거래 : "+item.RecentPrice.toLocaleString('ko-KR')+"</span>";
                 htmls += "        <span>최저가격 : "+item.CurrentMinPrice.toLocaleString('ko-KR')+"</span>";
-                htmls += "        <span>현재가격 : "+item.RecentPrice.toLocaleString('ko-KR')+"</span>";
                 htmls += "    </div>";
                 htmls += "</div>";
                 typeCmp = item.Type;

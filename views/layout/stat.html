@@ -31,11 +31,11 @@
         priceStatistics = new Chart(priceChart, {
             type: 'bar',
             data: {
-                labels: period,   //Date
+                labels: period.reverse(),
                 datasets: [
                     {
                         label: name+" 평균가격 추이",
-                        data: prices,
+                        data: prices.reverse(),
                         backgroundColor:'#C2A1E8',
                         barPercentage:0.5,
                     }
@@ -45,11 +45,11 @@
         tradeStatistics = new Chart(tradeChart, {
             type: 'line',
             data: {
-                labels: period,   //Date
+                labels: period.reverse(),
                 datasets: [
                     {
                         label: name+" 거래량 추이",
-                        data: trades,
+                        data: trades.reverse(),
                         backgroundColor:'#C2A1E8',
                         barPercentage:0.5,
                     }
@@ -69,7 +69,7 @@
 
             </span>
             <span class="escapeButton" onClick="statisticsClose()">
-                {% include 'layout/func/exit.html' %}
+                {% include 'layout/func/close.html' %}
             </span>
         </div>
         <canvas class="statCanvas" id="statisticsPriceChart"></canvas>
