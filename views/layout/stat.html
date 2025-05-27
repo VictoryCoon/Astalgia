@@ -19,10 +19,13 @@
         var prices = [];
         var period = [];
         var trades = [];
-        stats.forEach((price,idx)=>{
+        stats.some((price,idx)=>{
             prices[idx] = price.AvgPrice;
             period[idx] = price.Date.substring(5);
             trades[idx] = price.TradeCount;
+            if(idx > 6){
+                return true;
+            }
         });
 
         priceStatistics = new Chart(priceChart, {
