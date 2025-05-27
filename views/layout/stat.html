@@ -20,22 +20,26 @@
         var period = [];
         var trades = [];
         stats.some((price,idx)=>{
-            prices[idx] = price.AvgPrice;
             period[idx] = price.Date.substring(5);
+            prices[idx] = price.AvgPrice;
             trades[idx] = price.TradeCount;
             if(idx > 6){
                 return true;
             }
         });
 
+        period.reverse();
+        prices.reverse();
+        trades.reverse();
+
         priceStatistics = new Chart(priceChart, {
             type: 'bar',
             data: {
-                labels: period.reverse(),
+                labels: period,
                 datasets: [
                     {
                         label: name+" 평균가격 추이",
-                        data: prices.reverse(),
+                        data: prices,
                         backgroundColor:'#C2A1E8',
                         barPercentage:0.5,
                     }
@@ -45,11 +49,11 @@
         tradeStatistics = new Chart(tradeChart, {
             type: 'line',
             data: {
-                labels: period.reverse(),
+                labels: period,
                 datasets: [
                     {
-                        label: name+" 거래량 추이",
-                        data: trades.reverse(),
+                        label: name+" 거래물량 추이",
+                        data: trades,
                         backgroundColor:'#C2A1E8',
                         barPercentage:0.5,
                     }
