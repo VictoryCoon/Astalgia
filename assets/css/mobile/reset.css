@@ -252,6 +252,15 @@ body {
     gap:0.5rem;
 }
 
+.main .zero_data {
+    display:flex;
+    width:100%;
+    height:75vh;
+    justify-content:center;
+    align-items:center;
+    color:var(--bg-abrelshud-color-lv5);
+}
+
 /* Square Unit Style*/
 .unit {
     background-color:var(--bg-white-color-lv1);
