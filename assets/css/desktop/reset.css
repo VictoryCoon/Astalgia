@@ -302,15 +302,32 @@ body {
     gap:0.5rem;
 }
 
-.unit-body span {
+.unit-body .unit-row {
     display:flex;
-    background-image:url(/assets/img/icon_gold.png);
-    background-size:1.8rem;
-    background-repeat: no-repeat;
-    background-position:left;
-    width:auto;
-    text-indent:2rem;
+    flex-direction:row;
+    flex-grow:1;
+    justify-content:space-between;
 }
+
+.unit-body .unit-row span {
+    display:flex;
+    width:50%;
+}
+
+.unit-body .unit-row .label{
+    text-indent:0.3rem;
+    text-align:left;
+}
+
+.unit-body .unit-row .price{
+    text-indent:1.5rem;
+    background-image:url(/assets/img/icon_gold.png);
+    background-size:1.5rem;
+    background-repeat: no-repeat;
+    background-position:right;
+    text-align:right;
+}
+
 
 /* Reload Button*/
 .func-btn {

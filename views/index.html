@@ -93,9 +93,9 @@
                 htmls += "        <button class='func-btn' value='"+item.Id+"' onClick='reloadOne("+item.Id+",\""+item.Name+"\")'>{% include 'layout/func/reload.html' %}</button>";
                 htmls += "    </div>";
                 htmls += "    <div class='unit-body'>";
-                htmls += "        <span>전일평균 : "+item.YDayAvgPrice.toLocaleString('ko-KR')+"</span>";
-                htmls += "        <span>최근거래 : "+item.RecentPrice.toLocaleString('ko-KR')+"</span>";
-                htmls += "        <span>최저가격 : "+item.CurrentMinPrice.toLocaleString('ko-KR')+"</span>";
+                htmls += "        <div class='unit-row'><span class='label'>전일평균</span><span class='price'>"+item.YDayAvgPrice.toLocaleString('ko-KR')+"</span></div>";
+                htmls += "        <div class='unit-row'><span class='label'>최근거래</span><span class='price'>"+item.RecentPrice.toLocaleString('ko-KR')+"</span></div>";
+                htmls += "        <div class='unit-row'><span class='label'>최저가격</span><span class='price'>"+item.CurrentMinPrice.toLocaleString('ko-KR')+"</span></div>";
                 htmls += "    </div>";
                 htmls += "</div>";
                 typeCmp = item.Type;
