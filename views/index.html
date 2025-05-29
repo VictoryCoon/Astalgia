@@ -8,111 +8,138 @@
     <!-- Mobile Environment -->
     <link rel="stylesheet" type="text/css" href="/assets/css/mobile/reset.css" media="only screen and (min-width:200px) and (max-width:480px)">
     <script type="text/javascript" src="/assets/js/Ajax.js"></script>
-</head>
-<script type="text/javascript">
-    document.addEventListener("DOMContentLoaded", function(){
-        getItemList('all');
-    });
-    function statistic(id,name){
-        ajax("GET","itemInfoById",id)
-        .then(res => {
-            data = JSON.parse(res);
-            drawChart(data.Stats,name);
-        })
-        .catch(error => {
-            console.log("Statistics Load Failed:", error);
+    <script type="text/javascript">
+        document.addEventListener("DOMContentLoaded", function(){
+            getItemList('all');
         });
-    }
-    function reloadOne(id,name){
-        ajax("GET","itemInfoByName",name)
-        .then(res => {
-            htmls = "";
-            data = JSON.parse(res);
-            resetUnit = document.getElementById(data[0].Id);
-            htmls += "    <div class='unit-header' style='background-image:url("+data[0].Icon+");'>";
-            htmls += "        <span class='itemName'>"+data[0].Name+"</span>";
-            htmls += "        <button class='func-btn' value='"+data[0].Id+"' onClick='statistic("+data[0].Id+",\""+data[0].Name+"\")'>{% include 'layout/func/chart.html' %}</button>";
-            htmls += "        <button class='func-btn' value='"+data[0].Id+"' onClick='reloadOne("+data[0].Id+",\""+data[0].Name+"\")'>{% include 'layout/func/reload.html' %}</button>";
-            htmls += "    </div>";
-            htmls += "    <div class='unit-body'>";
-            htmls += "        <span>전일평균 : "+data[0].YDayAvgPrice.toLocaleString('ko-KR')+"</span>";
-            htmls += "        <span>최근거래 : "+data[0].RecentPrice.toLocaleString('ko-KR')+"</span>";
-            htmls += "        <span>최저가격 : "+data[0].CurrentMinPrice.toLocaleString('ko-KR')+"</span>";
-            htmls += "    </div>";
-            resetUnit.innerHTML = htmls;
-        })
-        .catch(error => {
-            console.log("Data Reload Failed:", error);
-        });
-    }
-    function getItemList(type,pattern="",sort=""){
-        path = "";
-        data = "";
-        document.getElementById("currentType").value = type;
-        if(pattern.length != 0 && sort.length != 0){
-            data = pattern+","+sort;
-        }else if(pattern.length != 0){
-            data = pattern;
-        }else if(sort.length != 0){
-            data = sort;
-        }else{
-            data = "";
-        }
-
-        switch (type) {
-            case "all":
-                path = "allItemList";
-                break;
-            case "egv":
-                path = "engravingList";
-                break;
-            case "mat":
-                path = "materialList";
-                break;
-            case "frm":
-                path = "farmingList";
-                break;
-        }
-        ajax("GET",path,data)
-        .then(res => {
-            var typeCmp = "";
-            var htmls = "";
-            data = JSON.parse(res);
-            data.forEach((item,idx)=>{
-                /*
-                if(idx>0){
-                    if(typeCmp != item.Type){
-                        console.log("타입이 변경됨 : "+typeCmp+","+item.Type);
-                    }
-                }
-                */
-                htmls += "<div class='unit' id='"+item.Id+"'>";
-                htmls += "    <div class='unit-header' style='background-image:url("+item.Icon+");'>";
-                htmls += "        <span class='itemName'>"+item.Name+"</span>";
-                htmls += "        <button class='func-btn' value='"+item.Id+"' onClick='statistic("+item.Id+",\""+item.Name+"\")'>{% include 'layout/func/chart.html' %}</button>";
-                htmls += "        <button class='func-btn' value='"+item.Id+"' onClick='reloadOne("+item.Id+",\""+item.Name+"\")'>{% include 'layout/func/reload.html' %}</button>";
-                htmls += "    </div>";
-                htmls += "    <div class='unit-body'>";
-                htmls += "        <div class='unit-row'><span class='label'>전일평균</span><span class='price'>"+item.YDayAvgPrice.toLocaleString('ko-KR')+"</span></div>";
-                htmls += "        <div class='unit-row'><span class='label'>최근거래</span><span class='price'>"+item.RecentPrice.toLocaleString('ko-KR')+"</span></div>";
-                htmls += "        <div class='unit-row'><span class='label'>최저가격</span><span class='price'>"+item.CurrentMinPrice.toLocaleString('ko-KR')+"</span></div>";
-                htmls += "    </div>";
-                htmls += "</div>";
-                typeCmp = item.Type;
+        function statistic(id,name){
+            ajax("GET","itemInfoById",id)
+            .then(res => {
+                data = JSON.parse(res);
+                drawChart(data.Stats,name);
+            })
+            .catch(error => {
+                console.log("Statistics Load Failed:", error);
             });
-            itemBox = document.getElementById("marketList");
-            itemBox.innerHTML = htmls;
-        })
-        .catch(error => {
-            console.log("Data Load Failed:", error);
-        });
-    }
+        }
 
-    function reload(){
-        type = document.getElementById("currentType").value;
-        getItemList(type);
-    }
-</script>
+        function reloadJewel(){
+            type = document.getElementById("currentType").value;
+            getItemList(type);
+        }
+
+        function reloadOne(id,name){
+            ajax("GET","itemInfoByName",name)
+            .then(res => {
+                htmls = "";
+                data = JSON.parse(res);
+                if(data[0].Channel == 'market'){
+                    resetUnit = document.getElementById(data[0].Id);
+                    htmls += "    <div class='unit-header' style='background-image:url("+data[0].Icon+");'>";
+                    htmls += "        <span class='itemName'>"+data[0].Name+"</span>";
+                    htmls += "        <button class='func-btn' value='"+data[0].Id+"' onClick='statistic("+data[0].Id+",\""+data[0].Name+"\")'>{% include 'layout/func/chart.html' %}</button>";
+                    htmls += "        <button class='func-btn' value='"+data[0].Id+"' onClick='reloadOne("+data[0].Id+",\""+data[0].Name+"\")'>{% include 'layout/func/reload.html' %}</button>";
+                    htmls += "    </div>";
+                    htmls += "    <div class='unit-body'>";
+                    htmls += "        <span>전일평균 : "+data[0].YDayAvgPrice.toLocaleString('ko-KR')+"</span>";
+                    htmls += "        <span>최근거래 : "+data[0].RecentPrice.toLocaleString('ko-KR')+"</span>";
+                    htmls += "        <span>최저가격 : "+data[0].CurrentMinPrice.toLocaleString('ko-KR')+"</span>";
+                    htmls += "    </div>";
+                    resetUnit.innerHTML = htmls;
+                }
+            })
+            .catch(error => {
+                console.log("Data Reload Failed:", error);
+            });
+        }
+        function getItemList(type,pattern="",sort=""){
+            path = "";
+            data = "";
+            document.getElementById("currentType").value = type;
+            if(pattern.length != 0 && sort.length != 0){
+                data = pattern+","+sort;
+            }else if(pattern.length != 0){
+                data = pattern;
+            }else if(sort.length != 0){
+                data = sort;
+            }else{
+                data = "";
+            }
+
+            switch (type) {
+                case "all":
+                    path = "allItemList";
+                    break;
+                case "gem":
+                    path = "gemstoneList";
+                    break;
+                case "egv":
+                    path = "engravingList";
+                    break;
+                case "mat":
+                    path = "materialList";
+                    break;
+                case "frm":
+                    path = "farmingList";
+                    break;
+            }
+            ajax("GET",path,data)
+            .then(res => {
+                var typeCmp = "";
+                var htmls = "";
+                data = JSON.parse(res);
+                data.forEach((item,idx)=>{
+                    if(item.Channel == 'market'){
+                        /*
+                        if(idx>0){
+                            if(typeCmp != item.Type){
+                                console.log("타입이 변경됨 : "+typeCmp+","+item.Type);
+                            }
+                        }
+                        */
+                        htmls += "<div class='unit' id='"+item.Id+"'>";
+                        htmls += "    <div class='unit-header' style='background-image:url("+item.Icon+");'>";
+                        htmls += "        <span class='itemName'>"+item.Name+"</span>";
+                        htmls += "        <button class='func-btn' value='"+item.Id+"' onClick='statistic("+item.Id+",\""+item.Name+"\")'>{% include 'layout/func/chart.html' %}</button>";
+                        htmls += "        <button class='func-btn' value='"+item.Id+"' onClick='reloadOne("+item.Id+",\""+item.Name+"\")'>{% include 'layout/func/reload.html' %}</button>";
+                        htmls += "    </div>";
+                        htmls += "    <div class='unit-body'>";
+                        htmls += "        <div class='unit-row'><span class='label'>전일평균</span><span class='price'>"+item.YDayAvgPrice.toLocaleString('ko-KR')+"</span></div>";
+                        htmls += "        <div class='unit-row'><span class='label'>최근거래</span><span class='price'>"+item.RecentPrice.toLocaleString('ko-KR')+"</span></div>";
+                        htmls += "        <div class='unit-row'><span class='label'>최저가격</span><span class='price'>"+item.CurrentMinPrice.toLocaleString('ko-KR')+"</span></div>";
+                        htmls += "    </div>";
+                        htmls += "</div>";
+                        typeCmp = item.Type;
+                    }else{
+                        htmls += "<div class='unit' id='"+item.Id+"'>";
+                        htmls += "    <div class='unit-header' style='background-image:url("+item.Icon+");'>";
+                        htmls += "        <span class='itemName'>"+item.Name+"</span>";
+                        //htmls += "        <button class='func-btn' value='"+item.Id+"' onClick='statistic("+item.Id+",\""+item.Name+"\")'>{% include 'layout/func/chart.html' %}</button>";
+                        htmls += "        <button class='func-btn' value='"+item.Name+"' onClick='reloadJewel()'>{% include 'layout/func/reload.html' %}</button>";
+                        htmls += "    </div>";
+                        htmls += "    <div class='unit-body'>";
+                        htmls += "        <div class='unit-row'><span class='label'>시작가격</span><span class='price'>"+item.AuctionInfo.StartPrice.toLocaleString('ko-KR')+"</span></div>";
+                        htmls += "        <div class='unit-row'><span class='label'>입찰가격</span><span class='price'>"+item.AuctionInfo.BidStartPrice.toLocaleString('ko-KR')+"</span></div>";
+                        htmls += "        <div class='unit-row'><span class='label'>즉시입찰</span><span class='price'>"+item.AuctionInfo.BuyPrice.toLocaleString('ko-KR')+"</span></div>";
+                        htmls += "    </div>";
+                        htmls += "</div>";
+                        typeCmp = item.Type;
+                    }
+                });
+                itemBox = document.getElementById("marketList");
+                itemBox.innerHTML = htmls;
+            })
+            .catch(error => {
+                console.log("Data Load Failed:", error);
+            });
+        }
+
+        function reload(){
+            type = document.getElementById("currentType").value;
+            getItemList(type);
+        }
+    </script>
+</head>
 <body>
     <input type="hidden" id="currentType" value="all"/>
     {% include 'layout/spin.html' %}
