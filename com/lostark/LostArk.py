@@ -314,12 +314,6 @@ async def GemstoneList(param:Optional[str]=None):
     level_10_burning_gemstone_return = requests.post(auction_items,json=level_10_burning_gemstone_obj,headers=REQUEST_HEADER)
 
     gemstone_scared_list = []
-    print(len(level_05_scared_gemstone_return.json()["Items"][0]))
-    print(len(level_06_scared_gemstone_return.json()["Items"][0]))
-    print(len(level_07_scared_gemstone_return.json()["Items"][0]))
-    print(len(level_08_scared_gemstone_return.json()["Items"][0]))
-    print(len(level_09_scared_gemstone_return.json()["Items"][0]))
-    print(len(level_10_scared_gemstone_return.json()["Items"][0]))
     gemstone_scared_list.append(level_05_scared_gemstone_return.json()["Items"][0])
     gemstone_scared_list.append(level_06_scared_gemstone_return.json()["Items"][0])
     gemstone_scared_list.append(level_07_scared_gemstone_return.json()["Items"][0])
