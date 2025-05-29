@@ -191,6 +191,10 @@ body {
     line-height:3rem;
 }
 
+.header span::after {
+    content:'ASTALGIA'
+}
+
 /* Navigator */
 .nav{   /* PC Mode */
     position:fixed;
